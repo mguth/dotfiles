@@ -20,9 +20,9 @@ git_dirty() {
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo "on %B%F{64}$(git_prompt_info)%f%b"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo "on %B%F{124}$(git_prompt_info)%f%b"
     fi
   fi
 }
@@ -45,18 +45,14 @@ need_push () {
     then
       echo " "
     else
-      echo " with %{$fg_bold[magenta]%}$number unpushed%{$reset_color%}"
+      echo " with %B%F{125}$number unpushed%f%b"
     fi
   fi
 }
 
-directory_name() {
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
-}
-
-export PROMPT=$'\nin $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n%* %F{166}%n%f@%F{136}%m%f in %B%F{64}%\/%f%b $(git_dirty)$(need_push)\n✘ '
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
+  export RPROMPT="%"
 }
 
 precmd() {
